@@ -70,6 +70,43 @@ Below we can gather more evidence that shows heavier winds is usually equal to l
 
 ![alt text](visualizations/wind_box.png)
 
+- **Modeling**
 
+To start the modeling process, it is important to choose the appropriate evaluation metric. For my project I went with a F1 score. F1 Score was the metric I decided because it values both True Positives and True Negatives equality. Because it is just as important to successfully predict a 'Over' as it is an 'Under' the F1 metric will be perfect for me. 
 
+Next in the modeling process I decided on 4 Baseline Models to compare against each other. The four models I decided on are Logistic Regression, Decision Tree Classifier, Random Forest Classifier, and Support Vector Machines. To begin I ran all the models and generate a confusion matrix and each models cross validation scores. First, Logistic Regression, which received a Train F1 score of 0.547, a Test F1 Score of 0.529, and a Cross Validation score of 0.491.
+
+![alt text](visualizations/log_confusion.png)
+
+While an F1 score of above 50%, as a basis we are shooting for at least above 51%, which we could achieve by predicting 'Under' every time; the cross validation score also points to lower than 50%. We can see from our confusion matrix that the model is pretty balanced in its predictions. The model is performing poorly on both the Train and the Test Dataset which could point to underfitting.
+
+Next, I tested a Decision Tree Classifier, which scored similar to the Logistic Regression model. With a Train F1 Score of 0.591, a Test F1 Score of 0.536, and a Cross Validation Score of 0.498
+
+(Confusion Matrix)
+
+![alt text](visualizations/.png)
+
+After that I ran a Random Forest model. The Random Forest model did not respond as well as I would have liked for this problem. Receiving a Train F1 Score of 0.551, Test F1 of 0.406, and a cross validation score of 0.446. Similar to the other models, the model seems to be underfit given the low Train and Test scores.
+
+(Confusion Matrix)
+![alt text](visualizations/.png)
+
+Last I ran a Support vector Machine model, which also did not run very well. Receiving a Train F1 Score of 0.645, Test F1 of 0.501, and a cross validation score of 0.324. Will this model was able to relatively overfit compared to the other models, it not help the Test F1 score, or the Cross Validation Score.
+
+(Confusion Matrix)
+![alt text](visualizations/.png)
+
+Recursive Feature Elimination and Polynomials
+
+After running the baseline models I decided to focus more on the Logistic Regression Model and the Decision Tree Model. First thing to try and improve my models was to cut out less important features. To do this a ran a Recursive Festure Elimination, which brought the dataset down to roughly 40 features. After doing this the Logistic Regression F1 Test score went up to 0.544 and the Decision Tree when up to .564.
+
+Next I determined that my model could benefit from more overfitting on the train set, so I used a polynomial dataset with the selected columns post recursive features elimination. While the plan worked for Logistic Regression, increasing the Train F1 Score to 0.591, the Test F1 score dropped to 0.519. That being said, for the case of the Decsion Tree Classifiar, while the Train F1 Score shot up to 0.626, the Test F1 score was also able to increase to 0.583. That being the case, I decided to drop the Logistic Regression model to focus on the Decision Tree.
+
+GridSearchCV
+
+I was able to get further improvement after running a GridSearch on the Decsition Tree. A gridsearch was able to to return Decision Tree Parameters (criterion= 'entropy', max_depth= 9, min_samples_leaf= 17, min_samples_split= 3) thst got the Trsin F1 Score up to 0.672 and the Test F1 score up to 0.611. This is significantly higher than where we started which is good to see. 
+
+- **Conclusion & Next Steps
+
+While it was very exciting watching my Classifier increase roughly .10, I know that there is still a lot of work that could be done before implementing my model in the real betting world. I will definitly need to continue tuning my model to get more reliable scores. More importantly though, my next steps will be to extract more data. I think live season data will make a huge difference on the results of my model. I would like two get statistics from the game before, or for the current season. Another importsnt next step will be to continue to feature engineer. I feel that my greatest insights came from combining two telling effective features. For example, an extremely windy and extremely cold day could be enough basis to take the under. In conclusion, while the model itself might still need some improvement, there are a lot of very telling insights that a sports better could use from this analysis to make an informed decision.
 
